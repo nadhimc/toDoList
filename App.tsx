@@ -27,6 +27,11 @@
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
 
+ import { Provider } from 'react-redux';
+
+ import Home from './src/Home';
+import store from './src/redux/store';
+
  const Section: React.FC<{
    title: string;
  }> = ({children, title}) => {
@@ -63,33 +68,17 @@
    };
 
    return (
-     <SafeAreaView style={backgroundStyle}>
-       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-       <ScrollView
-         contentInsetAdjustmentBehavior="automatic"
-         style={backgroundStyle}>
-         <Header />
-         <View
-           style={{
-             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-           }}>
-           <Section title="Step One">
-             Edit <Text style={styles.highlight}>App.js</Text> to change this
-             screen and then come back to see your edits.
-           </Section>
-           <Section title="See Your Changes">
-             <ReloadInstructions />
-           </Section>
-           <Section title="Debug">
-             <DebugInstructions />
-           </Section>
-           <Section title="Learn More">
-             Read the docs to discover what to do next:
-           </Section>
-           <LearnMoreLinks />
-         </View>
-       </ScrollView>
-     </SafeAreaView>
+     <Provider store={store}>
+        <SafeAreaView style={backgroundStyle}>
+            <View
+              style={{
+                backgroundColor: isDarkMode ? Colors.black : Colors.white,
+                minHeight: '100%',
+              }}>
+                <Home />
+            </View>
+        </SafeAreaView>
+     </Provider>
    );
  };
 
